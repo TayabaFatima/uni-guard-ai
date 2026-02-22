@@ -1,25 +1,15 @@
-import re
 
-SUSPICIOUS_KEYWORDS = [
-    "login", "verify", "bank", "secure", "free", "offer", "win", "click"
-]
+   def analyze_link(url):
+    suspicious_keywords = [
+        "login", "verify", "bank", "secure",
+        "account", "update", "password", "phishing"
+    ]
 
-def analyze_link(link):
-    score = 0
+    for word in suspicious_keywords:
+        if word in url.lower():
+            return "BLOCKED"
 
-    for word in SUSPICIOUS_KEYWORDS:
-        if word in link.lower():
-            score += 1
+    if url.startswith("http://"):
+        return "WARNING"
 
-    if re.search(r"(xyz|tk|ml|ga)", link):
-        score += 2
-
-    if link.count(".") > 3:
-        score += 1
-
-    if score >= 3:
-        return "danger"
-    elif score == 2:
-        return "suspicious"
-    else:
-        return "safe"
+    return "SAFE"
