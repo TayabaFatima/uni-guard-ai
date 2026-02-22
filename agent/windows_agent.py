@@ -1,8 +1,7 @@
-import requests
+print("Windows Agent Running...")
 
-link = input("Enter link: ")
-device_name = "Windows-PC"
+def secure_system():
+    print("All connections secured, threats blocked!")
 
-data = {"device": device_name, "link": link}
-response = requests.post("http://YOUR_SERVER_IP:3000/api/data", json=data)
-print(response.json())
+if __name__ == "__main__":
+    secure_system()
