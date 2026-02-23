@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>UNI-GUARD AI Dashboard</title>
-    <link rel="stylesheet" href="../static/style.css">
-</head>
-<body>
-    <h1>UNI-GUARD AI Link Scanner</h1>
-    <form method="POST">
-        <input type="text" name="link" placeholder="Enter URL" required>
-        <button type="submit">Scan</button>
-    </form>
-
-    {% if status %}
-        <p>Link: {{ link }}</p>
-        <p>Status: {{ status }}</p>
-        <p>Threat Score: {{ risk }}</p>
-    {% endif %}
-</body>
-</html>
+<h2>History</h2>
+<ul>
+{% for log in logs %}
+    <li>{{ log.link }} → {{ log.status }}</li>
+{% endfor %}
+</ul>
