@@ -1,42 +1,21 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from flask import Flask, render_template, request
-from core.detector import analyze_link
-from core.auto_block import take_action
-from core.predictive import predict_threat
-import json
-
-app = Flask(__name__)
-
 @app.route("/", methods=["GET", "POST"])
-def home():
-    status = None
-    risk_score = None
-    link = None
+def index():
+    result = None
+    threat = None
+    logs = load_logs()
 
     if request.method == "POST":
         link = request.form.get("link")
-        result = analyze_link(link)
-        status = take_action(result, link)
-        risk_score = predict_threat(link)
 
-        # Save log
-        try:
-            with open("../database.json", "r") as file:
-                logs = json.load(file)
-        except:
-            logs = []
+        result_type = analyze_link(link)
+        result = take_action(result_type, link)
+        threat = predict_threat(link)
 
-        logs.append({"link": link, "status": status, "risk": risk_score})
-        with open("../database.json", "w") as file:
-            json.dump(logs, file, indent=4)
+        save_log(link, result)
+        logs = load_logs()
 
-    return render_template("index.html", status=status, link=link, risk=risk_score)
-
-if __name__ == "__main__":
-    app.run(debug=True)
-    def load_logs():
+    return render_template("index.html", result=result, threat=threat, logs=logs)
+    def load_logs()
     try:
         with open("database.json", "r") as f:
             return json.load(f)
