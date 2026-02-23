@@ -36,3 +36,9 @@ def home():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    def load_logs():
+    try:
+        with open("database.json", "r") as f:
+            return json.load(f)
+    except:
+        return []
