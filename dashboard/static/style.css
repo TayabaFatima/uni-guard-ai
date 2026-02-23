@@ -1,5 +1,14 @@
-body { font-family: Arial; margin: 30px; }
-h1 { color: #2c3e50; }
-p { font-size: 18px; }
-input { padding: 10px; width: 300px; }
-button { padding: 10px; }
+body {
+    background: #0f172a;
+    color: white;
+    font-family: Arial;
+}
+
+h1 {
+    color: #38bdf8;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px;
+}
